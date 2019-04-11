@@ -39,8 +39,10 @@ int p_maze(maze_t *maze)
             pos = pos->next;
         }
     } while (pos->prev != NULL);
+    maze->map[maze->y - 1][maze->x - 1] = '*';
+    if (maze->x % 2 == 0)
+            maze->map[maze->y - 1][maze->x - 2] = '*';
     display_maze(maze);
-    
     kill_pos(pos);
     return (0);
 }

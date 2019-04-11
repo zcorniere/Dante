@@ -29,6 +29,7 @@ typedef struct coord_s {
 } coord_t;
 
 void freemaz(maze_t *maz);
+void kill_pos(coord_t *pos);
 
 void display_maze(maze_t *mas);
 
