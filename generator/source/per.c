@@ -30,18 +30,17 @@ int p_maze(maze_t *maze)
     int dir = -1;
 
     do {
-        for (int i = 0; i != 20; i++) {
-            maze->map[pos->y][pos->x] = '*';
-            dir = choose_dir(maze, pos, 0);
-            if (dir == 84)
-                pos = pos->prev;
-            else {
-                move(maze, pos, dir);
-                pos = pos->next;
-            }
+        maze->map[pos->y][pos->x] = '*';
+        dir = choose_dir(maze, pos, 0);
+        if (dir == 84)
+            pos = pos->prev;
+        else {
+            move(maze, pos, dir);
+            pos = pos->next;
         }
     } while (pos->prev != NULL);
     display_maze(maze);
+    
     kill_pos(pos);
     return (0);
 }
