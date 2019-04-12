@@ -12,7 +12,7 @@ int int_maze(maze_t *maze)
     int x = 0;
     int y = 0;
 
-    p_maze(maze);
+    p_maze(maze, 0);
     for (int i = 0; i < (maze->y + maze->x); i++) {
         x = rand() % maze->x - 1;
         y = rand() % maze->y - 1;

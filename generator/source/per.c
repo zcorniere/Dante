@@ -14,9 +14,13 @@ maze_t *alloc_maze(int y, int x)
     ret->x = x;
     ret->y = y;
     ret->map = malloc(sizeof(char *) * (y + 1));
+    if (ret->map == NULL)
+        return (NULL);
     ret->map[y] = NULL;
     for (int i = 0; i < y; i++) {
         ret->map[i] = malloc(sizeof(char) * (x + 1));
+        if (ret->map[i] == NULL)
+            return (NULL);
         ret->map[i][x] = '\0';
         for (int j = 0; j < x; j++)
             ret->map[i][j] = 'X';
@@ -24,12 +28,13 @@ maze_t *alloc_maze(int y, int x)
     return (ret);
 }
 
-int p_maze(maze_t *maze)
+int p_maze(maze_t *maze, int v)
 {
     coord_t *pos = create_list(0, 0);
     int dir = -1;
 
     do {
+        (v == 1)?(display_maze(maze), printf("\n")):(0);
         maze->map[pos->y][pos->x] = '*';
         while ((dir = choose_dir(maze, pos, 0)) == 84 && pos->prev != NULL)
             pos = pos->prev;
@@ -37,6 +42,7 @@ int p_maze(maze_t *maze)
             move(maze, pos, dir);
             pos = pos->next;
         }
+        (v == 1)?(usleep(50000)):(0);
     } while (pos->prev != NULL);
     maze->map[maze->y - 1][maze->x - 1] = '*';
     if (maze->x % 2 == 0)

@@ -36,7 +36,7 @@ void display_maze(maze_t *mas);
 int int_maze(maze_t *maze);
 
 maze_t *alloc_maze(int y, int x);
-int p_maze(maze_t *maze);
+int p_maze(maze_t *maze, int v);
 
 int opp_dir(int nb);
 int choose_dir(maze_t *maze, coord_t *pos, int i);
