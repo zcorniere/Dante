@@ -30,9 +30,7 @@ coords_t *verif_backward(int n, coords_t *here, char **map, coords_t *next)
     int re_x[5] = {0, -1, 0, 1, 0};
     int re_y[5] = {0, 0, 1, 0, -1};
 
-    printf("%c from %i\n", map[here->y + re_y[n]][here->x + re_x[n]], n);
     if (map[here->y + re_y[n]][here->x + re_x[n]] == ('0' + n)) {
-        printf("good\n");
         next->x = here->x + re_x[n];
         next->y = here->y + re_y[n];
     }
@@ -48,8 +46,6 @@ coords_t *back_track(char **map, coords_t *here, coords_t *max)
 
     next->x = here->x;
     next->y = here->y;
-    my_put_str_array(map);
-    printf("%i : %i\n", here->y, here->x);
     while (!verif_around(map, here, max)) {
         map[here->y][here->x] = '@';
         if (n >= 5)
@@ -60,14 +56,11 @@ coords_t *back_track(char **map, coords_t *here, coords_t *max)
         if (next->x != here->x || next->y != here->y) {
             here->x = next->x;
             here->y = next->y;
-            printf("%i : %i returned\n", here->y, here->x);
-            my_put_str_array(map);
             n = 0;
         } else
             n++;
     }
     map[here->y][here->x] = '*';
-    my_put_str_array(map);
     return (next);
 }
 
@@ -77,13 +70,10 @@ coords_t *verif_onward(int n, coords_t *here, char **map, coords_t *next)
     int mv_y[5] = {0, 0, -1, 0, 1};
 
     if (map[here->y + mv_y[n]][here->x + mv_x[n]] == '*') {
-        printf("%i : %i passed %c\n", here->y + mv_y[n], here->x + mv_x[n]);
         next->y = here->y + mv_y[n];
         next->x = here->x + mv_x[n];
         map[here->y][here->x] = '0' + n;
-        my_put_str_array(map);
-    } else
-        printf("%i : %i blocked\n", here->y + mv_y[n], here->x + mv_x[n]);
+    }
     return (next);
 }
 
@@ -94,26 +84,21 @@ char **brain_init(char **map, coords_t *here, coords_t *max)
     int mv_y[5] = {0, 0, -1, 0, 1};
     int n = 0;
 
-    my_put_str_array(map);
-    printf("%i x %i\n", max->x, max->y);
     while (here->x != (max->x - 1) || here->y != (max->y - 1)) {
         if (n == 5) {
             here = back_track(map, here, max);
             n = 0;
         }
-        printf("%i\n", n);
         if ((here->x + mv_x[n]) < max->x && (here->x + mv_x[n]) >= 0 &&
         (here->y + mv_y[n]) < max->y && (here->y + mv_y[n]) >= 0)
             next = verif_onward(n, here, map, next);
         if (next->x != here->x || next->y != here->y) {
             here->x = next->x;
             here->y = next->y;
-            printf("%i : %i now\n", here->y, here->x);
             n = 0;
         } else
             n++;
     }
     map[here->y][here->x] = '5';
-    my_put_str_array(map);
     return (map);
 }

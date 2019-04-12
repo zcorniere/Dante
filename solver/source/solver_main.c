@@ -14,6 +14,23 @@
 
 char **brain_init(char **map, coords_t *here, coords_t *max);
 
+char **clean_up(char **map, coords_t *max)
+{
+    int z = 0;
+
+    while (map[z / max->x][z % max->x]) {
+        if (map[z / max->x][z % max->x] == '@')
+            map[z / max->x][z % max->x] = '*';
+        if (map[z / max->x][z % max->x] >= '0' &&
+        map[z / max->x][z % max->x] <= '5')
+            map[z / max->x][z % max->x] = 'o';
+        z++;
+        if (!map[z / max->x])
+            return (map);
+    }
+    return (map);
+}
+
 int nbr_ln(char **map)
 {
     int len = 0;
@@ -48,5 +65,7 @@ int main(int ac, char **av)
     here->x = 0;
     here->y = 0;
     map = brain_init(map, here, max);
+    map = clean_up(map, max);
+    my_put_str_array(map);
     return (0);
 }
