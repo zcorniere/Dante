@@ -14,6 +14,13 @@
 
 char **brain_init(char **map, coords_t *here, coords_t *max);
 
+coords_t *set_coords(int x, int y, coords_t *it)
+{
+    it->x = x;
+    it->y = y;
+    return (it);
+}
+
 char **clean_up(char **map, coords_t *max)
 {
     int z = 0;
@@ -60,10 +67,8 @@ int main(int ac, char **av)
         return (84);
     fd = open(av[1], O_RDONLY);
     map = read_map(fd);
-    max->x = my_strlen(map[0]);
-    max->y = nbr_ln(map);
-    here->x = 0;
-    here->y = 0;
+    max = set_coords(my_strlen(map[0]), nbr_ln(map), max);
+    here = set_coords(0, 0, here);
     map = brain_init(map, here, max);
     map = clean_up(map, max);
     my_put_str_array(map);

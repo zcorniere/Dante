@@ -11,6 +11,8 @@
 
 int nbr_ln(char **map);
 
+coords_t *set_coords(int x, int y, coords_t *it);
+
 int verif_around(char **map, coords_t *next, coords_t *max)
 {
     int n = 0;
@@ -31,8 +33,7 @@ coords_t *verif_backward(int n, coords_t *here, char **map, coords_t *next)
     int re_y[5] = {0, 0, 1, 0, -1};
 
     if (map[here->y + re_y[n]][here->x + re_x[n]] == ('0' + n)) {
-        next->x = here->x + re_x[n];
-        next->y = here->y + re_y[n];
+        next = set_coords((here->x + re_x[n]), (here->y + re_y[n]), next);
     }
     return (next);
 }
@@ -44,8 +45,7 @@ coords_t *back_track(char **map, coords_t *here, coords_t *max)
     int re_x[5] = {0, -1, 0, 1, 0};
     int re_y[5] = {0, 0, 1, 0, -1};
 
-    next->x = here->x;
-    next->y = here->y;
+    next = set_coords(here->x, here->y, next);
     while (!verif_around(map, here, max)) {
         map[here->y][here->x] = '@';
         if (n >= 5)
@@ -54,8 +54,7 @@ coords_t *back_track(char **map, coords_t *here, coords_t *max)
         (here->y + re_y[n]) < max->y && (here->y + re_y[n]) >= 0)
             next = verif_backward(n, here, map, next);
         if (next->x != here->x || next->y != here->y) {
-            here->x = next->x;
-            here->y = next->y;
+            here = set_coords(next->x, next->y, here);
             n = 0;
         } else
             n++;
@@ -70,8 +69,7 @@ coords_t *verif_onward(int n, coords_t *here, char **map, coords_t *next)
     int mv_y[5] = {0, 0, -1, 0, 1};
 
     if (map[here->y + mv_y[n]][here->x + mv_x[n]] == '*') {
-        next->y = here->y + mv_y[n];
-        next->x = here->x + mv_x[n];
+        next = set_coords((here->x + mv_x[n]), (here->y + mv_y[n]), next);
         map[here->y][here->x] = '0' + n;
     }
     return (next);
@@ -93,8 +91,7 @@ char **brain_init(char **map, coords_t *here, coords_t *max)
         (here->y + mv_y[n]) < max->y && (here->y + mv_y[n]) >= 0)
             next = verif_onward(n, here, map, next);
         if (next->x != here->x || next->y != here->y) {
-            here->x = next->x;
-            here->y = next->y;
+            here = set_coords(next->x, next->y, here);
             n = 0;
         } else
             n++;
