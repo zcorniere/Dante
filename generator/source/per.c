@@ -30,18 +30,18 @@ maze_t *alloc_maze(int y, int x)
 
 int p_maze(maze_t *maze, int v)
 {
-    coord_t *pos = create_list(0, 0);
+    coord_t *pos = create_list(NULL, 0, 0);
     int dir = -1;
 
     do {
         (v == 1)?(display_maze(maze), printf("\n")):(0);
         maze->map[pos->y][pos->x] = '*';
-        while ((dir = choose_dir(maze, pos, 0)) == 84 && pos->prev != NULL)
+        while ((dir = choose_dir(maze, pos, 0)) == 84 && pos->prev != NULL) {
             pos = pos->prev;
-        if (dir != 84) {
-            move(maze, pos, dir);
-            pos = pos->next;
+            FREE(pos->next);
         }
+        if (dir != 84)
+            pos = move(maze, pos, dir);
         (v == 1)?(usleep(50000)):(0);
     } while (pos->prev != NULL);
     maze->map[maze->y - 1][maze->x - 1] = '*';

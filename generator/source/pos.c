@@ -7,9 +7,8 @@
 
 #include "../include/dante.h"
 
-coord_t *create_list(int y, int x)
+coord_t *create_list(coord_t *prev, int y, int x)
 {
-    static coord_t *prev = NULL;
     coord_t *ret = malloc(sizeof(coord_t));
 
     ret->prev = prev;

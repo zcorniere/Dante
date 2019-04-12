@@ -40,11 +40,11 @@ int p_maze(maze_t *maze, int v);
 
 int opp_dir(int nb);
 int choose_dir(maze_t *maze, coord_t *pos, int i);
-int move(maze_t *maze, coord_t *pos, int dir);
+coord_t *move(maze_t *maze, coord_t *pos, int dir);
 
 int is_blocked(maze_t *maze, coord_t *pos);
 int build_wall(maze_t *maze, coord_t *pos, int dir);
 
-coord_t *create_list(int y, int x);
+coord_t *create_list(coord_t *pos, int y, int x);
 
 #endif

@@ -48,25 +48,26 @@ int choose_dir(maze_t *maze, coord_t *pos, int i)
     return (dir);
 }
 
-int move(maze_t *maze, coord_t *pos, int dir)
+coord_t *move(maze_t *maze, coord_t *pos, int dir)
 {
     switch (dir) {
     case (0):
         maze->map[pos->y - 1][pos->x] = '*';
-        pos->next = create_list(pos->y - 2, pos->x);
+        pos->next = create_list(pos, pos->y - 2, pos->x);
         break;
     case (1):
         maze->map[pos->y][pos->x + 1] = '*';
-        pos->next = create_list(pos->y, pos->x + 2);
+        pos->next = create_list(pos, pos->y, pos->x + 2);
         break;
     case (2):
         maze->map[pos->y + 1][pos->x] = '*';
-        pos->next = create_list(pos->y + 2, pos->x);
+        pos->next = create_list(pos, pos->y + 2, pos->x);
         break;
     case(3):
         maze->map[pos->y][pos->x - 1] = '*';
-        pos->next = create_list(pos->y, pos->x - 2);
+        pos->next = create_list(pos, pos->y, pos->x - 2);
         break;
     }
-    return (0);
+    pos = pos->next;
+    return (pos);
 }
