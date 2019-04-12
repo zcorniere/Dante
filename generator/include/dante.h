@@ -33,7 +33,7 @@ void kill_pos(coord_t *pos);
 
 void display_maze(maze_t *mas);
 
-int int_maze(int x, int y);
+int int_maze(maze_t *maze);
 
 maze_t *alloc_maze(int y, int x);
 int p_maze(maze_t *maze);

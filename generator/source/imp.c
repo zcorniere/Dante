@@ -7,19 +7,18 @@
 
 #include "../include/dante.h"
 
-int int_maze(int x, int y)
+int int_maze(maze_t *maze)
 {
-    int nb;
+    int x = 0;
+    int y = 0;
 
-    for (int i = 0; i < y; i++) {
-        for (int j = 0; j < x; j++) {
-            nb = rand() % 2;
-            if (nb == 0)
-                printf("%c", '*');
-            else if (nb == 1)
-                printf("%c", 'X');
-        }
-        printf("\n");
+    p_maze(maze);
+    for (int i = 0; i < (maze->y + maze->x); i++) {
+        x = rand() % maze->x - 1;
+        y = rand() % maze->y - 1;
+        x = ABS(x);
+        y = ABS(y);
+        maze->map[y][x] = '*';
     }
     return (0);
 }

@@ -12,7 +12,7 @@ int is_blocked(maze_t *maze, coord_t *pos)
     int ret = 0;
 
     if (pos->y > 0) {
-        if (maze->map[pos->y - 1][pos->x] = 'X')
+        if (maze->map[pos->y - 1][pos->x] == 'X')
             ret++;
     } else if (pos->y == 0)
         ret++;

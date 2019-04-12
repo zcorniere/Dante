@@ -29,11 +29,12 @@ int main (int ac, char **av)
     x = atoi(av[1]);
     y = atoi(av[2]);
     maze = alloc_maze(y, x);
-    (av[3] != NULL)?(p = atoi(av[3])):(p = 0);
+    (av[3] != NULL) ?(p = atoi(av[3])):(p = 0);
     if (p == 0)
-        int_maze(x, y);
+        int_maze(maze);
     else if (p == 1)
         p_maze(maze);
+     display_maze(maze);
     freemaz(maze);
     return (0);
 }
