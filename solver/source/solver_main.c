@@ -51,8 +51,8 @@ char **read_map(int fd)
     struct stat buff;
 
     fstat(fd, &buff);
-    tmp = malloc(sizeof(char) * buff.st_size);
-    read(fd, tmp, buff.st_size);
+    tmp = malloc(sizeof(char) * buff.st_size - 1);
+    read(fd, tmp, buff.st_size - 1);
     return (my_str_to_word_array(tmp, '\n'));
 }
 
