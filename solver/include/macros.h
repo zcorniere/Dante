@@ -5,6 +5,8 @@
 ** file contaning many usefull macros
 */
 
+#include "my.h"
+
 #ifndef MACROS_H_
 #define MACROS_H_
 
@@ -13,6 +15,10 @@
 #define FREE(_p) do{                            \
         free( (_p) );                           \
         (_p) = NULL;                            \
-    }while(0)
+    }while (0)
 
+#define TRUE 1
+#define FALSE 0
+
+typedef int bool;
 #endif /*MACROS_H_*/

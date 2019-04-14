@@ -56,5 +56,6 @@ int my_nbrlen (int nb);
 char *my_strmcpy(char *dest, char const *src, int n);
 char *my_strdup(char *str);
 char *my_strmncpy(char *dest, char *src, int s, int e);
+char *my_str_filler(char *str, int size);
 
 #endif /*_MY_H_*/

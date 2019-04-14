@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** libmy
+** minishell1
 ** File description:
 ** str to word array
 */
@@ -24,14 +24,16 @@ char **my_str_to_word_array(char const *str, char c)
 {
     int row = calc_row(str, c);
     int j = 0;
-    char **tab = malloc(sizeof(char *) * (row + 1));
+    char **tab = NULL;
 
+    tab = malloc(sizeof(char *) * (row + 1));
     if (str == NULL || tab == NULL)
         return (NULL);
     tab[row] = NULL;
     for (int i = 0; i < row; i++) {
-        tab[i] = malloc(sizeof(char) * 256);
-        for (int k = 0; k < 255; k++)
+        tab[i] = NULL;
+        tab[i] = my_str_filler(tab[i], 256);
+        for (int k = 0; k < 256; k++)
             tab[i][k] = '\0';
         for (int k = 0; str[j] != c && str[j] != '\0'; k++)
             tab[i][k] = str[j++];

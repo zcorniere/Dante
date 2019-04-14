@@ -47,12 +47,13 @@ int nbr_ln(char **map)
 
 char **read_map(int fd)
 {
-    char *tmp;
+    char *tmp = NULL;
     struct stat buff;
 
     fstat(fd, &buff);
-    tmp = malloc(sizeof(char) * buff.st_size - 1);
+    tmp = my_str_filler(tmp, buff.st_size + 1);
     read(fd, tmp, buff.st_size - 1);
+    tmp[buff.st_size] = '\0';
     return (my_str_to_word_array(tmp, '\n'));
 }
 
@@ -72,5 +73,8 @@ int main(int ac, char **av)
     map = brain_init(map, here, max);
     map = clean_up(map, max);
     my_put_str_array(map);
+    freedom(map);
+    free(max);
+    free(here);
     return (0);
 }
