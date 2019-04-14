@@ -30,17 +30,13 @@ int choose_dir(maze_t *maze, coord_t *pos, int i)
         return (84);
     dir = rand() % 4;
     if (dir == 0 && last != 0 && pos->y > 1)
-        if (maze->map[pos->y - 2][pos->x] != '*')
-            ok = TRUE;
+        (maze->map[pos->y - 2][pos->x] != '*') ? (ok = TRUE) : (0);
     if (dir == 1 && last != 1 && pos->x < maze->x - 2)
-        if (maze->map[pos->y][pos->x + 2] != '*')
-            ok = TRUE;
+        (maze->map[pos->y][pos->x + 2] != '*') ? (ok = TRUE) : (0);
     if (dir == 2 && last != 2 && pos->y < maze->y - 2)
-        if (maze->map[pos->y + 2][pos->x] != '*')
-            ok = TRUE;
+        (maze->map[pos->y + 2][pos->x] != '*') ? (ok = TRUE) : (0);
     if (dir == 3 && last != 3 && pos->x > 1)
-        if (maze->map[pos->y][pos->x - 2] != '*')
-            ok = TRUE;
+        (maze->map[pos->y][pos->x - 2] != '*') ? (ok = TRUE) : (0);
     if (ok == FALSE) {
         dir = choose_dir(maze, pos, i + 1);
         last = opp_dir(dir);
