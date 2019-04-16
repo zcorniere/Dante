@@ -34,7 +34,7 @@ int p_maze(maze_t *maze, int v)
     int dir = -1;
 
     do {
-        (v == 1)?(display_maze(maze), printf("\n")):(0);
+        (v == 1)?(display_maze(maze), printf("\n\n")):(0);
         maze->map[pos->y][pos->x] = '*';
         while ((dir = choose_dir(maze, pos, 0)) == 84 && pos->prev != NULL) {
             pos = pos->prev;

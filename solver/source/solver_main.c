@@ -52,7 +52,7 @@ char **read_map(int fd)
 
     fstat(fd, &buff);
     tmp = my_str_filler(tmp, buff.st_size + 1);
-    read(fd, tmp, buff.st_size - 1);
+    read(fd, tmp, buff.st_size);
     tmp[buff.st_size] = '\0';
     return (my_str_to_word_array(tmp, '\n'));
 }
