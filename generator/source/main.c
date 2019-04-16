@@ -12,7 +12,8 @@ void display_maze(maze_t *mas)
     for (int i = 0; i < mas->y; i++) {
         for (int j = 0; j < mas->x; j++)
             printf("%c", mas->map[i][j]);
-        printf("\n");
+        if (i < mas->y - 1)
+            printf("\n");
     }
 }
 
