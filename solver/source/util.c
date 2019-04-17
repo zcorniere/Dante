@@ -10,7 +10,7 @@
 
 void freedom(char **tab)
 {
-    for (int i = 0; tab[i] != NULL; i++)
+    for (int i = 0; tab[i]; i++)
         FREE(tab[i]);
     FREE(tab);
 }

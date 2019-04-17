@@ -48,12 +48,15 @@ char **read_map(int fd)
 {
     char *tmp = NULL;
     struct stat buff;
+    char **map;
 
     fstat(fd, &buff);
     tmp = malloc((sizeof(char)) * (buff.st_size + 1));
     read(fd, tmp, buff.st_size);
     tmp[buff.st_size] = '\0';
-    return (str_to_array(tmp, '\n'));
+    map = str_to_array(tmp, '\n');
+    free(tmp);
+    return (map);
 }
 
 int main(int ac, char **av)
@@ -70,6 +73,7 @@ int main(int ac, char **av)
     max = set_coords(my_strlen(map[0]), nbr_ln(map), max);
     here = set_coords(0, 0, here);
     map = brain_init(map, here, max);
+    map[here->y][here->x] = 'o';
     map = clean_up(map, max);
     my_put_str_array(map);
     freedom(map);
