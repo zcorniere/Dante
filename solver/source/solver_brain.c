@@ -48,7 +48,7 @@ coords_t *back_track(char **map, coords_t *here, coords_t *max)
     next = set_coords(here->x, here->y, next);
     while (!verif_around(map, here, max)) {
         map[here->y][here->x] = '@';
-        if (n >= 5)
+        if (n == 5)
             exit (1);
         if ((here->x + re_x[n]) < max->x && (here->x + re_x[n]) >= 0 &&
         (here->y + re_y[n]) < max->y && (here->y + re_y[n]) >= 0)

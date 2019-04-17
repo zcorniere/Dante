@@ -11,8 +11,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
-char **brain_init(char **map, coords_t *here, coords_t *max);
+#include <stdio.h>
 
 coords_t *set_coords(int x, int y, coords_t *it)
 {
@@ -51,10 +50,10 @@ char **read_map(int fd)
     struct stat buff;
 
     fstat(fd, &buff);
-    tmp = my_str_filler(tmp, buff.st_size + 1);
+    tmp = malloc((sizeof(char)) * (buff.st_size + 1));
     read(fd, tmp, buff.st_size);
     tmp[buff.st_size] = '\0';
-    return (my_str_to_word_array(tmp, '\n'));
+    return (str_to_array(tmp, '\n'));
 }
 
 int main(int ac, char **av)

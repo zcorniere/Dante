@@ -14,4 +14,9 @@ typedef struct coords_s
     int y;
 }coords_t;
 
+char **brain_init(char **map, coords_t *here, coords_t *max);
+
+void freedom(char **tab);
+char **str_to_array(char const *str, char c);
+
 #endif /*STRUCT_H_*/
