@@ -22,7 +22,7 @@ int my_str_isprintable(char const *str)
     return (84);
 }
 
-int  my_ispritable(char const c)
+int my_ispritable(char const c)
 {
 
     if (c >= 32 && c <= 126)

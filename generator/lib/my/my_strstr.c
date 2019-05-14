@@ -9,9 +9,9 @@
 
 char *my_strstr(char *str, char const *to_find)
 {
-    int x;
-    int y;
-    int d;
+    int x = 0;
+    int y = 0;
+    int d = 0;
 
     while (str[x] != '\0') {
         y = x;

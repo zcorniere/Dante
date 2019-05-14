@@ -17,7 +17,7 @@ void display_maze(maze_t *mas)
     }
 }
 
-int main (int ac, char **av)
+int main(int ac, char **av)
 {
     int v = 0;
     int p = 1;

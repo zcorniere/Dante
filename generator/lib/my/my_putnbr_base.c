@@ -19,7 +19,7 @@ int my_putnbr_base(int nbr, char const *base)
     if (nbr == 0)
         return (0);
     else
-        my_putnbr_base ((nbr / a), base);
+        my_putnbr_base((nbr / a), base);
     my_putchar(base[nbr % a]);
     return (0);
 }
