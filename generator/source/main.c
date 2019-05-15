@@ -10,10 +10,9 @@
 void display_maze(maze_t *mas)
 {
     for (int i = 0; i < mas->y; i++) {
-        for (int j = 0; j < mas->x; j++)
-            printf("%c", mas->map[i][j]);
+        my_putstr(mas->map[i]);
         if (i < mas->y - 1)
-            printf("\n");
+            my_putchar('\n');
     }
 }
 
@@ -34,7 +33,7 @@ int main(int ac, char **av)
     if (p == 0)
         p_maze(maze, v);
     else
-        int_maze(maze);
+        int_maze(maze, v);
     display_maze(maze);
     freemaz(maze);
     return (0);

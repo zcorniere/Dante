@@ -7,7 +7,7 @@
 
 #include "../include/dante.h"
 
-int opp_dir(int nb)
+static int opp_dir(int nb)
 {
     if (nb == 0)
         return (2);

@@ -7,12 +7,12 @@
 
 #include "../include/dante.h"
 
-int int_maze(maze_t *maze)
+int int_maze(maze_t *maze, int v)
 {
     int x = 0;
     int y = 0;
 
-    p_maze(maze, 0);
+    p_maze(maze, v);
     for (int i = 0; i < (maze->y + maze->x); i++) {
         x = rand() % maze->x - 1;
         y = rand() % maze->y - 1;
