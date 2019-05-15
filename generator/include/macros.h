@@ -13,7 +13,7 @@
 #define FREE(_p) do{                            \
     free((_p));                           \
     (_p) = NULL;                            \
-} while(0)
+} while (0)
 
 #define TRUE 1
 #define FALSE 0

@@ -37,7 +37,7 @@ all: lib $(OBJ)
 run: all
 	./$(NAME) 26 6 1
 
-clean:
+clear:
 	@echo -e "$(BOLD)Deleting junks files$(END)"
 	@rm -fv source/*~
 	@rm -fv *~
@@ -50,19 +50,22 @@ lib: $(OBJ-LIB)
 	@ar rc $(addprefix $(LIB-PATH)/, $(LNAME)) $(OBJ-LIB)
 	@echo -e "$(GREEN)* * * * * LIBRARY COMPLETED * * * * *$(END)"
 
+clean:
+	@echo -e "$(BOLD)Deleting OBJ.o files$(END)"
+	@rm -f $(OBJ)
+	@echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
+
 lclean:
 	@echo -e "$(BOLD)Deleting $(LNAME)$(END)"
 	@rm -f $(OBJ-LIB)
 	@echo -e "$(CYAN)* * * * * LIBRARY REMOVED * * * * *$(END)"
 
 fclean: clean
-	@echo -e "$(BOLD)Deleting OBJ.o files$(END)"
-	@rm -f $(OBJ)
 	@echo -e "$(BOLD)Deleting $(NAME)$(END)"
 	@rm -f $(NAME)
 	@echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
 
-re:	fclean lclean lib all
+re:	clear fclean lclean lib all
 
 object/%.o: source/%.c
 	@gcc -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
