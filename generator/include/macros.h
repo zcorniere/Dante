@@ -10,10 +10,7 @@
 
 #define ABS(value) (((value) < (0)) ? (-value) : (value))
 
-#define FREE(_p) do{                            \
-    free((_p));                           \
-    (_p) = NULL;                            \
-} while (0)
+#define FREE(_p) do{ free((_p)); (_p) = NULL; } while (0)
 
 #define TRUE 1
 #define FALSE 0

@@ -73,6 +73,6 @@ object/%.o: source/%.c
     || echo -e "$(RED)[KO]$(BOLD)" $< "$(END)"
 
 object/%.o: $(LIB-PATH)/%.c
-	@gcc -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@gcc -Wall -I $(HEADP) -Wextra -fPIC -fno-builtin -c -o $@ $<	\
     && echo -e "$(GREEN)[OK]$(BOLD)" $< "$(END)"		\
     || echo -e "$(RED)[KO]$(BOLD)" $< "$(END)"
