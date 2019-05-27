@@ -26,7 +26,7 @@ int choose_dir(maze_t *maze, coord_t *pos, int i)
     int dir = -1;
     bool ok = FALSE;
 
-    if (i >= 10)
+    if (i >= 5)
         return (84);
     dir = rand() % 4;
     if (dir == 0 && last != 0 && pos->y > 1)

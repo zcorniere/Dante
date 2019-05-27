@@ -28,7 +28,7 @@ int main(int ac, char **av)
     maze = alloc_maze(atoi(av[2]), atoi(av[1]));
     if (maze == NULL)
         return (84);
-    (ac >= 4) ?(p = my_strcmp(av[3], "perfect")):(0);
+    (ac >= 4) ?(p = strcmp(av[3], "perfect")):(0);
     (ac >= 5) ?(v = atoi(av[4])):(v = 0);
     if (p == 0)
         p_maze(maze, v);

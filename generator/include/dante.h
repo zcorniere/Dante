@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "macros.h"
+#include <string.h>
 #include <time.h>
 #include <stdio.h>
 #include <sys/types.h>

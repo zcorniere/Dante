@@ -34,9 +34,6 @@ all: lib $(OBJ)
 	@gcc -o $(NAME) $(OBJ) -L $(LIB-PATH) -l$(LIB)
 	@echo -e "$(GREEN)* * * * * COMPLETED * * * * *$(END)"
 
-run: all
-	./$(NAME) 26 6 1
-
 clear:
 	@echo -e "$(BOLD)Deleting junks files$(END)"
 	@rm -fv source/*~
@@ -68,7 +65,7 @@ fclean: clean
 re:	clear fclean lclean lib all
 
 object/%.o: source/%.c
-	@gcc -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@gcc -g3 -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
     && echo -e "$(GREEN)[OK]$(BOLD)" $< "$(END)"		\
     || echo -e "$(RED)[KO]$(BOLD)" $< "$(END)"
 
