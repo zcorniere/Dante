@@ -7,7 +7,7 @@
 
 #include "../include/dante.h"
 
-void freemaz(maze_t *maz)
+__attribute__((cold))void freemaz(maze_t *maz)
 {
     for (int i = 0; i < maz->y; i++)
         FREE(maz->map[i]);

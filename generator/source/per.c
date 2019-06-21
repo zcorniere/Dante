@@ -7,7 +7,7 @@
 
 #include "../include/dante.h"
 
-maze_t *alloc_maze(int y, int x)
+__attribute__((cold))maze_t *alloc_maze(int y, int x)
 {
     maze_t *ret = malloc(sizeof(maze_t));
 
@@ -28,7 +28,7 @@ maze_t *alloc_maze(int y, int x)
     return (ret);
 }
 
-int p_maze(maze_t *maze, int v)
+__attribute__ ((hot))int p_maze(maze_t *maze, int v)
 {
     coord_t *pos = create_list(NULL, 0, 0);
     int dir = -1;

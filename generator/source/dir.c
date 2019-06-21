@@ -7,7 +7,7 @@
 
 #include "../include/dante.h"
 
-static int opp_dir(int nb)
+inline static int opp_dir(int nb)
 {
     if (nb == 0)
         return (2);
@@ -20,7 +20,7 @@ static int opp_dir(int nb)
     return (84);
 }
 
-int choose_dir(maze_t *maze, coord_t *pos, int i)
+__attribute__((hot))int choose_dir(maze_t *maze, coord_t *pos, int i)
 {
     static int last = -1;
     int dir = -1;
@@ -44,7 +44,7 @@ int choose_dir(maze_t *maze, coord_t *pos, int i)
     return (dir);
 }
 
-coord_t *move(maze_t *maze, coord_t *pos, int dir)
+__attribute__((hot))coord_t *move(maze_t *maze, coord_t *pos, int dir)
 {
     switch (dir) {
     case (0):

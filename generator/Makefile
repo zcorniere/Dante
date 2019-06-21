@@ -65,7 +65,7 @@ fclean: clean
 re:	clear fclean lclean lib all
 
 object/%.o: source/%.c
-	@gcc -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
+	@gcc -O3 -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
     && echo -e "$(GREEN)[OK]$(BOLD)" $< "$(END)"		\
     || echo -e "$(RED)[KO]$(BOLD)" $< "$(END)"
 
