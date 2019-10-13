@@ -15,7 +15,7 @@ __attribute__((cold))void freemaz(maze_t *maz)
     FREE(maz);
 }
 
-void kill_pos(coord_t *pos)
+__attribute__((cold))void kill_pos(coord_t *pos)
 {
     while (pos->next != NULL) {
         pos = pos->next;
