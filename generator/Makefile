@@ -48,7 +48,8 @@ lib: $(OBJ-LIB)
 	@ar rc $(addprefix $(LIB-PATH)/, $(LNAME)) $(OBJ-LIB)
 	@echo -e "$(GREEN)* * * * * LIBRARY COMPLETED * * * * *$(END)"
 
-docker: @gcc -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -O3 -o $(NAME) $(SRC) $(SRC-LIB) --static
+docker:
+	@gcc -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -O3 -o $(NAME) $(SRC) $(SRC-LIB) --static
 	
 clean:
 	@echo -e "$(BOLD)Deleting OBJ.o files$(END)"
