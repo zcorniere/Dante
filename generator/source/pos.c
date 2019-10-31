@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2019
+** PROJECT, 2019
 ** dante star
 ** File description:
 ** pos_malloc
