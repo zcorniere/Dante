@@ -5,11 +5,13 @@
 ** header
 */
 
-#include "my.h"
 #include "macros.h"
 #include <string.h>
 #include <time.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 

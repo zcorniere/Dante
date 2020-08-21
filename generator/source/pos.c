@@ -5,7 +5,7 @@
 ** pos_malloc
 */
 
-#include "../include/dante.h"
+#include "dante.h"
 
 __attribute__((hot)) coord_t *create_list(coord_t *prev, int y, int x)
 {

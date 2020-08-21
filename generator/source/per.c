@@ -5,7 +5,7 @@
 ** generator
 */
 
-#include "../include/dante.h"
+#include "dante.h"
 
 __attribute__((cold))maze_t *alloc_maze(int y, int x)
 {

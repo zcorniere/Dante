@@ -5,15 +5,20 @@
 ** main generator
 */
 
-#include "../include/dante.h"
+#include "dante.h"
 
 __attribute__((cold))void display_maze(maze_t *mas)
 {
     for (int i = 0; i < mas->y; i++) {
-        my_putstr(mas->map[i]);
+        write(1, mas->map[i], mas->x);
         if (i < mas->y - 1)
-            my_putchar('\n');
+            write(1, "\n", 1);
     }
+}
+
+__attribute__((cold))void print_help(void)
+{
+    write(1, "A maze generator\nUSAGE:\n\t./generator x y [perfect] [1]\n", 55);
 }
 
 int main(int ac, char **av)
@@ -23,8 +28,9 @@ int main(int ac, char **av)
     maze_t *maze = NULL;
 
     srand(time(NULL));
-    if (ac < 3 || ac > 5)
-        return (84);
+    if (ac < 3 || ac > 5) {
+        return print_help(), 84;
+    }
     maze = alloc_maze(atoi(av[2]), atoi(av[1]));
     if (maze == NULL)
         return (84);

@@ -5,7 +5,7 @@
 ** generate unperfect
 */
 
-#include "../include/dante.h"
+#include "dante.h"
 
 __attribute__((cold))int int_maze(maze_t *maze, int v)
 {
