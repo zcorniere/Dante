@@ -34,19 +34,16 @@ typedef struct coord_s {
 void freemaz(maze_t *maz);
 void kill_pos(coord_t *pos);
 
-void display_maze(maze_t *mas);
+void display_maze(const maze_t *const mas);
 
 int int_maze(maze_t *maze, int v);
 
-maze_t *alloc_maze(int y, int x);
-int p_maze(maze_t *maze, int v);
+maze_t *alloc_maze(const int y, const int x);
+int p_maze(maze_t *maze, const int v);
 
-int choose_dir(maze_t *maze, coord_t *pos, int i);
-coord_t *move(maze_t *maze, coord_t *pos, int dir);
+int choose_dir(const maze_t *maze, const coord_t *pos, const int i);
+coord_t *move(maze_t *maze, coord_t *pos, const int dir);
 
-int is_blocked(maze_t *maze, coord_t *pos);
-int build_wall(maze_t *maze, coord_t *pos, int dir);
-
-coord_t *create_list(coord_t *pos, int y, int x);
+coord_t *create_list(coord_t *pos, const int y, const int x);
 
 #endif

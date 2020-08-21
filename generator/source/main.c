@@ -7,7 +7,7 @@
 
 #include "dante.h"
 
-__attribute__((cold))void display_maze(maze_t *mas)
+__attribute__((cold))void display_maze(const maze_t *const mas)
 {
     for (int i = 0; i < mas->y; i++) {
         write(1, mas->map[i], mas->x);

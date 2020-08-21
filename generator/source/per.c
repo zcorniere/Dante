@@ -7,7 +7,7 @@
 
 #include "dante.h"
 
-__attribute__((cold))maze_t *alloc_maze(int y, int x)
+__attribute__((cold))maze_t *alloc_maze(const int y, const int x)
 {
     maze_t *ret = malloc(sizeof(maze_t));
 
@@ -21,14 +21,13 @@ __attribute__((cold))maze_t *alloc_maze(int y, int x)
         ret->map[i] = malloc(sizeof(char) * (x + 1));
         if (ret->map[i] == NULL)
             return (NULL);
+        memset(ret->map[i], 'X', x);
         ret->map[i][x] = '\0';
-        for (int j = 0; j < x; j++)
-            ret->map[i][j] = 'X';
     }
     return (ret);
 }
 
-__attribute__ ((hot))int p_maze(maze_t *maze, int v)
+__attribute__ ((hot))int p_maze(maze_t *maze, const int v)
 {
     coord_t *pos = create_list(NULL, 0, 0);
     int dir = -1;
