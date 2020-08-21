@@ -1,79 +1,119 @@
 ##
-## PROJECT, 2018
-## Makefile
-## File description:
-## Makefile
+## A Makefile with faith
+## Hu 2.0
 ##
 
-VERSION    :=    0.3
-SRC		=	$(wildcard $(addprefix source/, *).c)
-NOM		=	$(basename $(notdir $(SRC)))
-OBJ     =   $(addprefix object/, $(addsuffix .o, $(NOM)))
+NAME := generator
+HEADP := ./include/
 
-LNAME	=	libmy.a
-LIB		=	my
-LIB-PATH	=	./lib/my
-SRC-LIB	=	$(wildcard $(addprefix $(LIB-PATH)/, *).c)
-NOM-LIB	=	$(basename $(notdir $(SRC-LIB)))
-OBJ-LIB	=	$(addprefix object/, $(addsuffix .o, $(NOM-LIB)))
+SRC_FOLDER := source
+OBJ_FOLDER := .object
+TEST_FOLDER := tests
 
-HEADP	=	./include/
+CC := gcc
+LANG := .c
+VPATH := $(SRC_FOLDER)
+SRC := $(notdir $(shell find $(SRC_FOLDER) -name '*$(LANG)'))
+OBJ := $(addprefix $(OBJ_FOLDER)/,$(SRC:$(LANG)=.o))
+OBJM := $(filter-out $(OBJ_FOLDER)/main.o, $(OBJ))
 
-NAME	=	generator
+VPATH += $(TEST_FOLDER)
+TEST_SRC := $(notdir $(shell find $(TEST_FOLDER) -name '*$(LANG)'))
+TEST_OBJ := $(addprefix $(OBJ_FOLDER)/, $(TEST_SRC:$(LANG)=.o))
+TFLAGS := -lcriterion
 
-END		=	\033[0m
-BOLD	=	\033[1m
-GREEN	=	\033[32m
-RED		=	\033[31m
-CYAN	=	\033[36m
+DEP_FOLDER := .deps
+DEPS := $(addprefix $(DEP_FOLDER), $(SRC:$(LANG)=.d))
+TEST_DEPS := $(addprefix $(DEP_FOLDER), $(TEST_SRC:$(LANG)=.d))
 
-.PHONY: re clean lib
+END := \033[0m
+BOLD := \033[1m
+RED := \033[31m
+GREEN := \033[32m
+CYAN := \033[36m
 
-all: lib $(OBJ)
-	@echo -e "$(BOLD)OBJ.o generation$(END)"
-	@echo -e "$(BOLD)$(NAME) generation$(END)"
-	@gcc -o $(NAME) $(OBJ) -L $(LIB-PATH) -l$(LIB)
-	@echo -e "$(GREEN)* * * * * COMPLETED * * * * *$(END)"
+CFLAGS := -O3 -I $(HEADP) -Wall -Wextra -Werror
+
+MAKEFLAGS += --no-print-directory --silent
+
+SAY := $(BOLD)[$(CYAN)壺$(END)$(BOLD)]:
+
+all: $(NAME)
+.PHONY: all
+
+-include $(DEPS) $(TEST_DEPS)
+
+start_compile:
+	printf "$(SAY) Praise for the almighty $(CYAN)binary$(END)$(BOLD) !$(END)\n"
+.PHONY: start_compile
+
+$(NAME): start_compile $(OBJ)
+	$(CC) -o $(NAME) -I $(HEADP) $(OBJ) $(CFLAGS)
+	printf "$(SAY) Ameno ! $(CYAN)$(NAME)$(END)$(BOLD) is among us !$(END)\n"
+
+tests_run: $(OBJ) $(TEST_OBJ)
+	printf "$(SAY) Are you doubting my faith ?$(END)\n"
+	$(CC) -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(CFLAGS)
+	./unit_tests -j4 $(VERBOSE)
+.PHONY: tests_run
+
+unit_tests: $(OBJM) $(TEST_OBJ)
+	$(CC) -o unit_tests $(OBJM) $(TEST_OBJ) $(TFLAGS) $(CFLAGS)
+.PHONY: unit_tests
+
+$(OBJ): | $(OBJ_FOLDER) $(DEP_FOLDER)
+
+$(OBJ):$(OBJ_FOLDER)/%.o: %$(LANG)
+	$(CC) $(CFLAGS) -c -o $@ $<	\
+	&& printf "$(BOLD)$(CYAN)$< $(END)$(BOLD)has been blessed.$(END)\n"    \
+	|| printf "$(BOLD)$(RED) $< $(END)$(BOLD)has been cursed.$(END)\n"
+	$(CC) $(CFLAGS) -MM -MP -MT $@ $< > $(DEP_FOLDER)/$*.d
 
 clear:
-	@echo -e "$(BOLD)Deleting junks files$(END)"
-	@rm -fv source/*~
-	@rm -fv *~
-	@rm -fv include/*~
-	@rm -fv vgcore.*
-	@echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
+	printf "$(SAY) Purging heretics files...\n"
+	rm -fv source/*~
+	rm -fv *~
+	rm -fv include/*~
+	printf "$(SAY) Done.$(END)\n\n"
+.PHONY: clear
 
-lib: $(OBJ-LIB)
-	@echo -e "$(GREEN)Generating$(BOLD) $(LNAME)$(END)"
-	@ar rc $(addprefix $(LIB-PATH)/, $(LNAME)) $(OBJ-LIB)
-	@echo -e "$(GREEN)* * * * * LIBRARY COMPLETED * * * * *$(END)"
-
-docker:
-	@gcc -I $(HEADP) -Wall -Wextra -fPIC -fno-builtin -O3 -o $(NAME) $(SRC) $(SRC-LIB) --static
-	
 clean:
-	@echo -e "$(BOLD)Deleting OBJ.o files$(END)"
-	@rm -f $(OBJ)
-	@echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
+	printf "$(SAY) ...\n"
+	rm -vf $(OBJ)
+	rm -f $(DEPS)
+	printf "$(SAY) What ? I am just \"rewriting\" the holy book.$(END)\n\n"
+.PHONY: clean
 
-lclean:
-	@echo -e "$(BOLD)Deleting $(LNAME)$(END)"
-	@rm -f $(OBJ-LIB)
-	@echo -e "$(CYAN)* * * * * LIBRARY REMOVED * * * * *$(END)"
+fclean: tclean clean
+	printf "$(BOLD)Deleting $(NAME)$(END)\n"
+	rm -f $(NAME)
+	printf "$(SAY) It is a false god. In such, it has been \"deleted\"$(END)\n\n"
+.PHONY: fclean
 
-fclean: clean
-	@echo -e "$(BOLD)Deleting $(NAME)$(END)"
-	@rm -f $(NAME)
-	@echo -e "$(CYAN)* * * * * CLEANED * * * * *$(END)"
+tclean:
+	printf "$(BOLD)Deleting your skepticism.\n"
+	rm -f $(TEST_DEPS)
+	rm -vf $(TEST_OBJ)
+	rm -vf tests_run
+	printf "$(CYAN)* * * * * SKEPTICISM REMOVED * * * * *$(END)\n\n"
+.PHONY: tclean
 
-re:	clear fclean lclean lib all
+re:
+	make clear
+	make fclean
+	make all
+.PHONY: re
 
-object/%.o: source/%.c
-	@gcc -O3 -Wall -Wextra -fPIC -fno-builtin -c -o $@ $<	\
-    && echo -e "$(GREEN)[OK]$(BOLD)" $< "$(END)"		\
-    || echo -e "$(RED)[KO]$(BOLD)" $< "$(END)"
+$(TEST_OBJ): $(OBJ_FOLDER)/%.o: %$(LANG)
+	$(CC) $(CFLAGS) $(TFLAGS) -c -o $@ $< \
+	&& printf "$(BOLD)$(CYAN)$< $(END)$(BOLD)is ready.$(END)\n"    \
+	|| printf "$(BOLD)$(RED) $< $(END)$(BOLD)is not ready.$(END)\n"
+	$(CC) $(CFLAGS) -MM -MP -MT $@ $< > $(DEP_FOLDER)/$*.d
 
-object/%.o: $(LIB-PATH)/%.c
-	@gcc -Wall -I $(HEADP) -Wextra -fPIC -fno-builtin -c -o $@ $<	\
-    && echo -e "$(GREEN)[OK]$(BOLD)" $< "$(END)"		\
-    || echo -e "$(RED)[KO]$(BOLD)" $< "$(END)"
+hello:
+	printf "$(SAY) I am Hu, a wandering believer. My praise are currently to $(NAME).$(END)\n"
+	printf "$(SAY) My big brother is named Ri. You may know him ?$(END)\n"
+.PHONY: hello
+
+$(OBJ_FOLDER) $(DEP_FOLDER):
+	mkdir -p $@
