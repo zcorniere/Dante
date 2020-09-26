@@ -31,14 +31,13 @@ typedef struct coord_s {
     struct coord_s *next;
 } coord_t;
 
-void freemaz(maze_t *maz);
 void kill_pos(coord_t *pos);
 
 void display_maze(const maze_t *const mas);
 
 int int_maze(maze_t *maze, int v);
 
-maze_t *alloc_maze(const int y, const int x);
+maze_t *alloc_maze(const size_t y, const size_t x);
 int p_maze(maze_t *maze, const int v);
 
 int choose_dir(const maze_t *maze, const coord_t *pos, const int i);

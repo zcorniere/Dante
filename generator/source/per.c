@@ -6,21 +6,21 @@
 */
 
 #include "dante.h"
+#define MAZE_SIZE(y, x) ((sizeof(char *) * (y + 1)) * (sizeof(char) * (x + 1)))
 
-__attribute__((cold))maze_t *alloc_maze(const int y, const int x)
+__attribute__((cold))maze_t *alloc_maze(const size_t y, const size_t x)
 {
-    maze_t *ret = malloc(sizeof(maze_t));
+    void *ptr = malloc(sizeof(maze_t) + MAZE_SIZE(y, x));
+    maze_t *ret = (maze_t *)ptr;
 
+    ptr += sizeof(maze_t);
     ret->x = x;
     ret->y = y;
-    ret->map = malloc(sizeof(char *) * (y + 1));
-    if (ret->map == NULL)
-        return (NULL);
+    ret->map = ptr;
     ret->map[y] = NULL;
-    for (int i = 0; i < y; i++) {
-        ret->map[i] = malloc(sizeof(char) * (x + 1));
-        if (ret->map[i] == NULL)
-            return (NULL);
+    ptr += (sizeof(char *) * (y + 1));
+    for (size_t i = 0; i < y; i++) {
+        ret->map[i] = (char *)ptr + x * i + i;
         memset(ret->map[i], 'X', x);
         ret->map[i][x] = '\0';
     }
