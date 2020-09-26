@@ -74,6 +74,7 @@ clear:
 	rm -fv source/*~
 	rm -fv *~
 	rm -fv include/*~
+	rm -fv vgcore.*
 	printf "$(SAY) Done.$(END)\n\n"
 .PHONY: clear
 
