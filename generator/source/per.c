@@ -19,9 +19,9 @@ __attribute__((cold))maze_t *alloc_maze(const size_t y, const size_t x)
     ret->map = ptr;
     ret->map[y] = NULL;
     ptr += (sizeof(char *) * (y + 1));
+    memset(ptr, 'X', MAZE_SIZE(y, x) - (sizeof(char *) * (y + 1)));
     for (size_t i = 0; i < y; i++) {
         ret->map[i] = (char *)ptr + x * i + i;
-        memset(ret->map[i], 'X', x);
         ret->map[i][x] = '\0';
     }
     return (ret);
