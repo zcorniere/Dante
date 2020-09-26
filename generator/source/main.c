@@ -9,7 +9,7 @@
 
 __attribute__((cold))void display_maze(const maze_t *const mas)
 {
-    for (int i = 0; i < mas->y; i++) {
+    for (unsigned i = 0; i < mas->y; i++) {
         write(1, mas->map[i], mas->x);
         if (i < mas->y - 1)
             write(1, "\n", 1);
@@ -26,24 +26,37 @@ __attribute__((constructor))void ctor(void)
     srand(time(NULL));
 }
 
-int main(int ac, char **av)
+__attribute__((cold))maze_t *check_args(const int ac, const char **av)
 {
-    int v = 0;
-    int p = 1;
-    maze_t *maze = NULL;
+    bool v = false;
+    bool p = false;
+    size_t x = 0;
+    size_t y = 0;
 
     if (ac < 3 || ac > 5) {
-        return print_help(), 84;
+        return print_help(), NULL;
     }
-    maze = alloc_maze(atoi(av[2]), atoi(av[1]));
+    x = atoi(av[1]);
+    y = atoi(av[2]);
+    if (x < 2 || y < 2)
+        return NULL;
+    if (ac >= 4)
+        p = (strcmp(av[3], "perfect"))?(false):(true);
+    if (ac >= 5)
+        v = (atoi(av[4]) == 1);
+    return alloc_maze(y, x, p, v);
+}
+
+int main(const int ac, const char **av)
+{
+    maze_t *maze = check_args(ac, av);
+
     if (maze == NULL)
         return (84);
-    (ac >= 4) ?(p = strcmp(av[3], "perfect")):(0);
-    (ac >= 5) ?(v = atoi(av[4])):(v = 0);
-    if (p == 0)
-        p_maze(maze, v);
+    if (maze->is_perfect)
+        p_maze(maze);
     else
-        int_maze(maze, v);
+        int_maze(maze);
     display_maze(maze);
     free(maze);
     return 0;

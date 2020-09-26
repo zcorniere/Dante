@@ -24,8 +24,8 @@ __attribute__((hot))int choose_dir(const maze_t *maze, const coord_t *pos, const
     int dir = -1;
     bool ok = false;
 
-    if (i >= 5)
-        return (84);
+    if (i >= NB_RETRY)
+        return 84;
     dir = rand() % 4;
     if (dir == 0 && last != 0 && pos->y > 1)
         ok = (maze->map[pos->y - 2][pos->x] != '*') ? (true) : (false);
@@ -37,9 +37,9 @@ __attribute__((hot))int choose_dir(const maze_t *maze, const coord_t *pos, const
         ok = (maze->map[pos->y][pos->x - 2] != '*') ? (true) : (false);
     if (!ok) {
         dir = choose_dir(maze, pos, i + 1);
-        last = opp_dir(dir);
     }
-    return (dir);
+    last = opp_dir(dir);
+    return dir;
 }
 
 __attribute__((hot))coord_t *move(maze_t *maze, coord_t *pos, const int dir)
@@ -63,5 +63,5 @@ __attribute__((hot))coord_t *move(maze_t *maze, coord_t *pos, const int dir)
         break;
     }
     pos = pos->next;
-    return (pos);
+    return pos;
 }
