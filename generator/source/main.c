@@ -34,7 +34,7 @@ __attribute__((cold))maze_t *check_args(const int ac, const char **av)
     size_t y = 0;
 
     if (ac < 3 || ac > 5) {
-        return print_help(), NULL;
+        return NULL;
     }
     x = atoi(av[1]);
     y = atoi(av[2]);
@@ -52,7 +52,7 @@ int main(const int ac, const char **av)
     maze_t *maze = check_args(ac, av);
 
     if (maze == NULL)
-        return (84);
+        return print_help(), 84;
     if (maze->is_perfect)
         p_maze(maze);
     else

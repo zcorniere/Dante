@@ -15,6 +15,8 @@ __attribute__((cold))maze_t *alloc_maze(const size_t y, const size_t x, const bo
     void *ptr = malloc(sizeof(maze_t) + MAZE_SIZE(y, x));
     maze_t *ret = (maze_t *)ptr;
 
+    if (ptr == NULL)
+        return NULL;
     ptr += sizeof(maze_t);
     ret->x = x;
     ret->y = y;
