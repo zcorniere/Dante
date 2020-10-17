@@ -35,7 +35,7 @@ __attribute__((cold))maze_t *alloc_maze(const size_t y, const size_t x, const bo
 
 __attribute__((cold))void dig_out(maze_t *maze)
 {
-    for (int i = maze->x - 1; i >= 0; i--) {
+    for (size_t i = maze->x - 1; i != 0; i--) {
         maze->map[maze->y - 1][i] = '*';
         if (maze->map[maze->y - 2][i] == '*')
             break;

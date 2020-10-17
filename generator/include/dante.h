@@ -23,15 +23,15 @@
 typedef struct maze_s {
     bool is_perfect;
     bool is_verbose;
-    unsigned x;
-    unsigned y;
+    size_t x;
+    size_t y;
     char **map;
 } maze_t;
 
 typedef struct coord_s {
     struct coord_s *prev;
-    unsigned x;
-    unsigned y;
+    size_t x;
+    size_t y;
     struct coord_s *next;
 } coord_t;
 

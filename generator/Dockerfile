@@ -1,9 +1,10 @@
-FROM registry.dragonalpha.fr/infra/ci/minimal:latest AS compile
+FROM ubuntu:latest AS compile
 WORKDIR /app/dante
 COPY . .
-RUN make docker
+RUN apt-get update && apt-get install -y make gcc && apt-get clean
+RUN make re
 
-FROM alpine:latest
+FROM ubuntu:latest
 COPY --from=compile /app/dante/generator/ /
 ENTRYPOINT ["/generator"]
 CMD []
