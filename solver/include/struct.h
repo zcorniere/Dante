@@ -8,6 +8,10 @@
 #ifndef STRUCT_H_
 #define STRUCT_H_
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+
 typedef struct coords_s
 {
     int x;

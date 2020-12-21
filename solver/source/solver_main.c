@@ -5,9 +5,9 @@
 ** solver_main.c
 */
 
-#include "../include/my.h"
-#include "../include/struct.h"
+#include "struct.h"
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -70,12 +70,15 @@ int main(int ac, char **av)
         return (84);
     fd = open(av[1], O_RDONLY);
     map = read_map(fd);
-    max = set_coords(my_strlen(map[0]), nbr_ln(map), max);
+    max = set_coords(strlen(map[0]), nbr_ln(map), max);
     here = set_coords(0, 0, here);
     map = brain_init(map, here, max);
     map[here->y][here->x] = 'o';
     map = clean_up(map, max);
-    my_put_str_array(map);
+    for (unsigned i = 0; map[i] != NULL; i++) {
+        write(1, map[i], strlen(map[i]));
+        write(1, "\n", 1);
+    }
     freedom(map);
     free(max);
     free(here);

@@ -5,8 +5,7 @@
 ** solver_brain.c
 */
 
-#include "../include/my.h"
-#include "../include/struct.h"
+#include "struct.h"
 #include <stdio.h>
 
 int nbr_ln(char **map);
