@@ -7,7 +7,7 @@
 
 #include "dante.h"
 
-__attribute__((cold))int int_maze(maze_t *maze)
+__attribute__((cold))int int_maze(const maze_t *maze)
 {
     unsigned x = 0;
     unsigned y = 0;

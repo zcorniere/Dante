@@ -27,13 +27,13 @@ __attribute__((cold))maze_t *alloc_maze(const size_t y, const size_t x, const bo
     ptr += ROW_SIZE(y);
     memset(ptr, 'X', MAZE_SIZE(y, x) - ROW_SIZE(y));
     for (size_t i = 0; i < y; i++) {
-        ret->map[i] = (char *)ptr + x * i + i;
+        ret->map[i] = (char *)ptr + ((x * i) + i);
         ret->map[i][x] = '\0';
     }
-    return (ret);
+    return ret;
 }
 
-__attribute__((cold))void dig_out(maze_t *maze)
+__attribute__((cold))void dig_out(const maze_t *maze)
 {
     for (size_t i = maze->x - 1; i != 0; i--) {
         maze->map[maze->y - 1][i] = '*';
@@ -42,7 +42,7 @@ __attribute__((cold))void dig_out(maze_t *maze)
     }
 }
 
-__attribute__ ((hot))int p_maze(maze_t *maze)
+__attribute__ ((hot))int p_maze(const maze_t *maze)
 {
     coord_t *pos = create_list(NULL, 0, 0);
     int dir = -1;
@@ -60,5 +60,5 @@ __attribute__ ((hot))int p_maze(maze_t *maze)
     } while (pos->prev != NULL);
     kill_pos(pos);
     dig_out(maze);
-    return (0);
+    return 0;
 }
