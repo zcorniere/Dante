@@ -18,7 +18,12 @@
 #ifndef DANTE_H_
 #define DANTE_H_
 
-#define NB_RETRY 5
+    #define NB_RETRY 2
+
+    #define MAZE_LINE_TERMINATION '\n'
+
+    #define ROW_SIZE(y) (sizeof(char*) * (y + 1))
+    #define MAZE_SIZE(y, x) (ROW_SIZE(y) * (sizeof(char) * (x + 1)))
 
 typedef struct maze_s {
     bool is_perfect;
@@ -37,16 +42,19 @@ typedef struct coord_s {
 
 void kill_pos(coord_t *pos);
 
-void display_maze(const maze_t *const mas);
+FORCEINLINE void display_maze(const maze_t* const mas)
+{
+    write(1, mas->map + mas->y + 1, mas->x * mas->y + mas->y);
+}
 
-int int_maze(const maze_t *maze);
+int int_maze(const maze_t* const maze);
 
 maze_t *alloc_maze(const size_t y, const size_t x, const bool p, const bool v);
-int p_maze(const maze_t *maze);
+int p_maze(const maze_t* const maze);
 
 int choose_dir(const maze_t *const maze, const coord_t *const pos, const int i);
-coord_t *move(const maze_t *maze, coord_t *pos, const int dir);
+coord_t* move(const maze_t* const maze, coord_t* const pos, const int dir);
 
-coord_t *create_list(coord_t *pos, const int y, const int x);
+coord_t* create_list(coord_t* const pos, const int y, const int x);
 
 #endif

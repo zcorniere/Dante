@@ -7,23 +7,9 @@
 
 #include "dante.h"
 
-__attribute__((cold))void display_maze(const maze_t *const mas)
-{
-    for (unsigned i = 0; i < mas->y; i++) {
-        write(1, mas->map[i], mas->x);
-        if (i < mas->y - 1)
-            write(1, "\n", 1);
-    }
-}
-
-__attribute__((cold))void print_help(void)
+__attribute__((cold)) void print_help(void)
 {
     write(1, "A maze generator\nUSAGE:\n\t./generator x y [perfect] [1]\n", 55);
-}
-
-__attribute__((constructor))void ctor(void)
-{
-    srand(time(NULL));
 }
 
 __attribute__((cold))maze_t *check_args(const int ac, const char **av)
@@ -41,7 +27,7 @@ __attribute__((cold))maze_t *check_args(const int ac, const char **av)
     if (x < 2 || y < 2)
         return NULL;
     if (ac >= 4)
-        p = (strcmp(av[3], "perfect"))?(false):(true);
+        p = (strcmp(av[3], "perfect") == 0);
     if (ac >= 5)
         v = (atoi(av[4]) == 1);
     return alloc_maze(y, x, p, v);
@@ -49,7 +35,9 @@ __attribute__((cold))maze_t *check_args(const int ac, const char **av)
 
 int main(const int ac, const char **av)
 {
-    maze_t *maze = check_args(ac, av);
+    maze_t* const maze = check_args(ac, av);
+
+    srand(time(NULL));
 
     if (maze == NULL)
         return print_help(), 84;

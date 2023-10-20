@@ -41,7 +41,7 @@ __attribute__((hot))int choose_dir(const maze_t *const maze, const coord_t *cons
     return dir;
 }
 
-__attribute__((hot))coord_t *move(const maze_t *maze, coord_t *pos, const int dir)
+__attribute__((hot)) coord_t* move(const maze_t* const maze, coord_t* const pos, const int dir)
 {
     switch (dir) {
     case 0:
@@ -61,6 +61,5 @@ __attribute__((hot))coord_t *move(const maze_t *maze, coord_t *pos, const int di
         pos->next = create_list(pos, pos->y, pos->x - 2);
         break;
     }
-    pos = pos->next;
-    return pos;
+    return pos->next;
 }

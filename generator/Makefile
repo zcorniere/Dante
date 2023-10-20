@@ -10,7 +10,7 @@ SRC_FOLDER := source
 OBJ_FOLDER := .object
 TEST_FOLDER := tests
 
-CC := gcc
+CC := clang
 LANG := .c
 VPATH := $(SRC_FOLDER)
 SRC := $(notdir $(shell find $(SRC_FOLDER) -name '*$(LANG)'))

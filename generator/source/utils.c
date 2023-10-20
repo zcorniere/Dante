@@ -7,7 +7,7 @@
 
 #include "dante.h"
 
-__attribute__((cold))void kill_pos(coord_t *pos)
+__attribute__((cold)) void kill_pos(coord_t* pos)
 {
     while (pos->next != NULL) {
         pos = pos->next;

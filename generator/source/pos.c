@@ -7,14 +7,15 @@
 
 #include "dante.h"
 
-__attribute__((hot)) coord_t *create_list(coord_t *prev, const int y, const int x)
+__attribute__((hot)) FORCEINLINE coord_t* create_list(coord_t* const prev, const int y, const int x)
 {
     coord_t *ret = malloc(sizeof(coord_t));
 
+    if (prev) {
+        prev->next = ret;
+    }
     ret->prev = prev;
     ret->y = y;
     ret->x = x;
-    ret->next = NULL;
-    prev = ret;
-    return (ret);
+    return ret;
 }

@@ -5,3 +5,5 @@ a.out
 vgcore.*
 *~
 .todo
+generator/.ccls-cache
+generator/.cache
